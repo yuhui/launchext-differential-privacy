@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Differential Privacy Extension Configuration</title>
+    <link rel="stylesheet" href="//assets.adobedtm.com/activation/reactor/spectrum/2.9.0/spectrum-light.css">
+    <link rel="stylesheet" href="../stylesheets/style.css">
+    <script src="//use.typekit.net/buj6cmr.js"></script>
+  </head>
+  <body class="spectrum spectrum--light spectrum-Body">
+    <h4 class="spectrum-Heading4">No configuration necessary</h4>
+    <p>
+      To use: <b>Go to <span class="text-underline">Data Elements</span> and
+      create a <span class="text-underline">"Differential Item"</span>.</b>
+    </p>
+    <p>&nbsp;</p>
+    <p>
+      To preserve user privacy when tracking your users digitally, some
+      randomness can be introduced to data collection. This allows the analyst
+      to be confident that the aggregate results reflect the actual behaviour
+      of the population, while not being fully confident that every individual
+      piece of data is the actual value collected from an individual.
+    </p>
+    <p>
+      This extension's application of differential privacy is inspired by
+      <a href="https://accuracyandprivacy.substack.com/p/differential-privacy-an-easy-case" class="spectrum-Link" target="_blank" rel="noreferrer">Mark Hansen's "Differential privacy, an easy case"</a>.
+    </p>
+
+    <footer class="spectrum-Body--small text footer">
+      <p>Copyright &copy; 2020 Yuhui. All rights reserved.</p>
+      <p>
+        <a href="https://yuhui.sg/terms-of-service.html" target="_blank">Terms of Service</a> |
+        <a href="https://yuhui.sg/privacy-policy.html" target="_blank">Privacy Policy</a> |
+        <a href="https://yuhui.sg/cookie-policy.html" target="_blank">Cookie Policy</a> |
+        <a href="https://yuhui.sg/acceptable-use-policy.html" target="_blank">Acceptable Use Policy</a>
+      </p>
+    </footer>
+
+    <script src="https://assets.adobedtm.com/activation/reactor/extensionbridge/extensionbridge.min.js"></script>
+    <script>
+      window.extensionBridge.register({
+        init: function(info) {
+          if (info.settings) {}
+        },
+
+        getSettings: function() {
+          return {};
+        },
+
+        validate: function() {
+          return true;
+        }
+      });
+    </script>
+  </body>
+</html>

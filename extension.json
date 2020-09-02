@@ -1,0 +1,36 @@
+{
+  "displayName": "Differential Privacy",
+  "name": "differential-privacy",
+  "platform": "web",
+  "version": "1.0.0",
+  "description": "Provides a simple application of differential privacy to select a value from a list",
+  "author": {
+    "name": "Yuhui",
+    "url": "https://yuhui.sg",
+    "email": "dev@yuhui.sg"
+  },
+  "exchangeUrl": "https://exchange.adobe.com/experiencecloud.details.104535.differential-privacy.html",
+  "iconPath": "differential-privacy-icon.svg",
+  "viewBasePath": "src/view/",
+  "configuration": {
+    "viewPath": "configuration/configuration.html",
+    "schema": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "type": "object",
+      "properties": {}
+    }
+  },
+  "dataElements": [
+    {
+      "displayName": "Differential Item",
+      "name": "differential-item",
+      "schema": {
+        "$schema": "http://json-schema.org/draft-04/schema#",
+        "type": "object",
+        "properties": {}
+      },
+      "libPath": "src/lib/dataElements/differentialItem.js",
+      "viewPath": "dataElements/differentialItem.html"
+    }
+  ]
+}
