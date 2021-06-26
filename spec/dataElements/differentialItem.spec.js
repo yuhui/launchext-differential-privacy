@@ -17,7 +17,12 @@
 'use strict';
 
 describe('differentialItem data element delegate', function() {
-  var dataElementDelegate = require('../../lib/dataElements/differentialItem');
+  // mock turbine.logger
+  global.turbine = {
+    logger: jasmine.createSpyObj('', ['debug', 'info', 'warn', 'alert', 'error']),
+  };
+
+  var dataElementDelegate = require('../../src/lib/dataElements/differentialItem');
 
   beforeEach(function() {
     this.settings = {

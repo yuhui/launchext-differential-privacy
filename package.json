@@ -1,22 +1,26 @@
 {
   "name": "launchext-differential-privacy",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Provide a simple application of differential privacy in Adobe Experience Platform Launch",
   "author": "Yuhui",
   "license": "GPL-3.0-or-later",
   "main": "main.js",
-  "dependencies": {},
   "devDependencies": {
-    "@adobe/reactor-packager": "^4.0.1",
-    "@adobe/reactor-releaser": "^3.0.0",
-    "@adobe/reactor-sandbox": "^10.8.1",
-    "@adobe/reactor-scaffold": "^2.1.3",
-    "@adobe/reactor-uploader": "^5.0.0",
-    "eslint": "^7.7.0",
-    "jasmine": "^3.6.1",
-    "parcel-bundler": "^1.12.4"
+    "@adobe/reactor-packager": "^4.1.1",
+    "@adobe/reactor-sandbox": "^11.2.0",
+    "@adobe/reactor-uploader": "^5.0.5",
+    "eslint": "^7.29.0",
+    "jasmine": "^3.7.0"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  }
+    "test": "jasmine"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yuhui/launchext-differential-privacy.git"
+  },
+  "bugs": {
+    "url": "https://github.com/yuhui/launchext-differential-privacy/issues"
+  },
+  "homepage": "https://github.com/yuhui/launchext-differential-privacy#readme"
 }
