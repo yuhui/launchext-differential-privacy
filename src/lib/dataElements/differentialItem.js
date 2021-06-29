@@ -16,7 +16,7 @@
 
 'use strict';
 
-var log = require('../helpers/log');
+var logger = turbine.logger;
 
 /**
  * Returns the object's type using `Object.prototype.toString`.
@@ -51,14 +51,14 @@ module.exports = function(settings) {
   // validate settings.selectedItem
   var selectedItem = settings.selectedItem;
   if (!selectedItem) {
-    log('error', 'missing selected item');
+    logger.error('missing selected item');
     return;
   }
 
   // validate settings.probabilityOfUsingSelectedItem
   var probabilityOfUsingSelectedItem = settings.probabilityOfUsingSelectedItem;
   if (!probabilityOfUsingSelectedItem) {
-    log('error', 'missing probability of using selected item');
+    logger.error('missing probability of using selected item');
     return;
   }
   var probabilityOfUsingSelectedItemType = objectType(
@@ -67,35 +67,32 @@ module.exports = function(settings) {
   if (
     ['Number', 'String'].indexOf(probabilityOfUsingSelectedItemType) === -1
   ) {
-    log('error', 'probability of using selected item is not a number');
+    logger.error('probability of using selected item is not a number');
     return;
   }
   if (probabilityOfUsingSelectedItemType === 'String') {
     probabilityOfUsingSelectedItem = parseFloat(probabilityOfUsingSelectedItem);
   }
   if (!probabilityOfUsingSelectedItem) {
-    log('error', 'probability of using selected item is not a number');
+    logger.error('probability of using selected item is not a number');
     return;
   }
   if (
     probabilityOfUsingSelectedItem < 0.0 || probabilityOfUsingSelectedItem > 1.0
   ) {
-    log(
-      'error',
-      'probability of using selected item must be between 0.0 and 1.0'
-    );
+    logger.error('probability of using selected item must be between 0.0 and 1.0');
     return;
   }
 
   // validate settings.listOfPossibleItems
   var listOfPossibleItems = settings.listOfPossibleItems;
   if (!listOfPossibleItems) {
-    log('error', 'missing list of possible items');
+    logger.error('missing list of possible items');
     return;
   }
   var listOfPossibleItemsType = objectType(listOfPossibleItems);
   if (['Array', 'String'].indexOf(listOfPossibleItemsType) === -1) {
-    log('error', 'list of possible items is not a string nor an array');
+    logger.error('list of possible items is not a string nor an array');
     return;
   }
   if (listOfPossibleItemsType === 'String') {
@@ -107,11 +104,11 @@ module.exports = function(settings) {
   // validate settings.returnType
   var returnType = settings.returnType;
   if (!returnType) {
-    log('error', 'missing return type');
+    logger.error('missing return type');
     return;
   }
   if (!/^(position|value)$/.test(returnType)) {
-    log('error', 'return type is neither "position" nor "value"');
+    logger.error('return type is neither "position" nor "value"');
     return;
   }
 
@@ -142,7 +139,7 @@ module.exports = function(settings) {
     returnValue += '';
   }
   if (returnValue) {
-    log('info', 'returned: ' + returnValue);
+    logger.debug('returned: ' + returnValue);
     return returnValue;
   }
 };

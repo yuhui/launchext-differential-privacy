@@ -51,6 +51,8 @@ function getFormValues(formId) {
           case 'radio':
             if (formElement.checked) {
               formValues[formElement.name] = formElement.value;
+            } else if (formElement.type === 'checkbox') {
+              formValues[formElement.name] = '';
             }
             break;
         }
@@ -97,7 +99,11 @@ function setFormValues(formId, formValues) {
   for (var i = 0, j = formFields.length; i < j; i++) {
     var field = formFields[i];
     if (field in formValues) {
-      form[field].value = formValues[field];
+      if (form[field].type === 'checkbox') {
+        form[field].checked = formValues[field] === form[field].value ? true : false;
+      } else {
+        form[field].value = formValues[field];
+      }
     }
   }
 }
@@ -112,40 +118,29 @@ function getFormFields(formId) {
 /** Check if a form value is a data element token */
 // eslint-disable-next-line no-unused-vars
 function isDataElementToken(formValue) {
-  return /^%.+%$/.test(formValue);
+  return /^%([^%]+)%$/.test(formValue);
+}
+
+/** Check if a value is an integer */
+// eslint-disable-next-line no-unused-vars
+function valueIsInteger(value) {
+  return (value + '').length > 0 &&
+    !isNaN(parseInt(value)) &&
+    parseInt(value) === parseFloat(value);
 }
 
 /** Show or hide an element based on the value of a form field */
 // eslint-disable-next-line no-unused-vars
 function toggleElement(formId, toggleField, toggleValue, selectorToToggle) {
   var formValues = getFormValues(formId);
-  var formField = formValues[toggleField];
+  var toggleFieldValue = formValues[toggleField];
 
   var elementToShowHide = document.querySelector(selectorToToggle);
-  if (formField === toggleValue) {
-    elementToShowHide.classList.remove('show');
-    elementToShowHide.classList.add('hide');
-  } else {
+  if (toggleFieldValue === toggleValue) {
     elementToShowHide.classList.remove('hide');
     elementToShowHide.classList.add('show');
-  }
-}
-
-/** Show or hide an input's error message based on the validity of that input */
-// eslint-disable-next-line no-unused-vars
-function toggleInputErrorMessage(inputName, inputIsValid) {
-  var input = document.querySelector('input[name="' + inputName + '"]');
-  var errorMessage =
-    document.querySelector('input[name="' + inputName + '"]').
-      parentNode.parentNode.parentNode.parentNode.
-      querySelector('span.error-message');
-  if (inputIsValid) {
-    input.classList.remove('spectrum-Alert--error');
-    errorMessage.classList.remove('show');
-    errorMessage.classList.add('hide');
   } else {
-    input.classList.add('spectrum-Alert--error');
-    errorMessage.classList.remove('hide');
-    errorMessage.classList.add('show');
+    elementToShowHide.classList.remove('show');
+    elementToShowHide.classList.add('hide');
   }
 }

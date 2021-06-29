@@ -2,7 +2,7 @@
   "displayName": "Differential Privacy",
   "name": "differential-privacy",
   "platform": "web",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Provides a simple application of differential privacy to select a value from a list",
   "author": {
     "name": "Yuhui",
@@ -17,7 +17,8 @@
     "schema": {
       "$schema": "http://json-schema.org/draft-04/schema#",
       "type": "object",
-      "properties": {}
+      "properties": {},
+      "additionalProperties": false
     }
   },
   "dataElements": [
@@ -27,7 +28,38 @@
       "schema": {
         "$schema": "http://json-schema.org/draft-04/schema#",
         "type": "object",
-        "properties": {}
+        "properties": {
+          "selectedItem": {
+            "description": "Item that has been pre-selected for returning",
+            "type": "string",
+            "minLength": 1
+          },
+          "probabilityOfUsingSelectedItem": {
+            "description": "Probably of using the selected item",
+            "type": "string",
+            "minLength": 1,
+            "pattern": "^(%.+%|0\\.[0-9]{1,})$",
+            "default": "0.8"
+          },
+          "listOfPossibleItems": {
+            "description": "Comma-separated list of items that could be used in place of the selected item",
+            "type": "string",
+            "minLength": 1
+          },
+          "returnType": {
+            "description": "Return the chosen item's position in the list of possible items, or the item's value itself",
+            "type": "string",
+            "enum": [ "position", "value" ],
+            "default": "value"
+          }
+        },
+        "required": [
+          "selectedItem",
+          "probabilityOfUsingSelectedItem",
+          "listOfPossibleItems",
+          "returnType"
+        ],
+        "additionalProperties": false
       },
       "libPath": "src/lib/dataElements/differentialItem.js",
       "viewPath": "dataElements/differentialItem.html"

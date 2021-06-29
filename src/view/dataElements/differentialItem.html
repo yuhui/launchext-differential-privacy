@@ -3,131 +3,125 @@
   <head>
     <meta charset="UTF-8">
     <title>Differential Item Data Element</title>
-    <link rel="stylesheet" href="//assets.adobedtm.com/activation/reactor/spectrum/2.9.0/spectrum-light.css">
+    <link rel="stylesheet" href="https://unpkg.com/@adobe/coral-spectrum@4.5.0/dist/css/coral.min.css">
     <link rel="stylesheet" href="../stylesheets/style.css">
-    <script src="//use.typekit.net/buj6cmr.js"></script>
+    <script src="https://unpkg.com/@adobe/coral-spectrum@4.5.0/dist/js/coral.min.js" data-coral-icons-external="js"></script>
   </head>
-  <body class="spectrum spectrum--light spectrum-Body">
-    <form id="data-element-configuration" class="spectrum-Form">
-      <h4 class="spectrum-Heading4">About this data element</h4>
-      <p>
-        Given a list of items and a probability, this data element returns
-        either the pre-selected item or a random item from the list.
+  <body class="coral--light coral-Body--S u-coral-margin">
+    <section class="coral-Well">
+      <h4 class="coral-Heading--S coral-Heading--light">How this Data Element works</h4>
+        <p>
+        Given a list of items and a probability, this data element returns either the pre-selected
+        item or a random item from the list.
       </p>
+    </section>
 
-      <div class="content-separator">
-        &nbsp;
-      </div>
+    <form id="data-element-configuration" class="coral-Form">
+      <h4 class="coral-Heading--M">Setup Differential Item</h4>
 
-      <div id="selected-item-container">
-        <div>
-          <div id="selected-item" class="max-width">
-            <span>Pre-selected item</span>
-            <label>
-              <input type="text" name="selectedItem" value="">
-            </label>
-            <button class="spectrum-ActionButton spectrum-ActionButton--quiet">
-              <svg xmlns="http://www.w3.org/2000/svg" class="spectrum-Icon spectrum-Icon--sizeL" viewBox="0 0 36 36" focusable="false" role="img">
-                <title>Data Element selector</title>
-                <rect fill="#ff13dc" opacity="0" />
-                <ellipse class="a" cx="9" cy="3.5" rx="8" ry="2.5" />
-                <path class="a" d="M9,12.1375c-2.468,0-7.106-.5845-8-2V14.5C1,15.8805,4.5815,17,9,17s8-1.1195,8-2.5V10.135C15.7765,11.6825,11.468,12.1375,9,12.1375Z" />
-                <path class="a" d="M9,7.1375c-2.468,0-7.106-.5845-8-2.0025V8.5C1,9.8805,4.5815,11,9,11s8-1.1195,8-2.5V5.135C15.7765,6.6825,11.468,7.1375,9,7.1375Z" />
-              </svg>
-            </button>
-          </div>
-        </div>
-        This is the item that has been pre-selected and will be returned if the
-        probability is met.<br />
-        <span class="error-message hide">
-          A data element or an item must be provided.
+      <div class="coral-FormGroup-item">
+        <span>
+          Pre-selected item
+          <coral-icon icon="Asterisk" class="coral-FieldLabel-requiredIcon" size="XXS" alt="required"></coral-icon>
         </span>
-      </div>
-
-      <div class="content-separator">
-        &nbsp;
-      </div>
-
-      <div id="probability-of-using-selected-item-container">
-        <div>
-          <div id="probability-of-using-selected-item" class="max-width">
-            <span>Probability of using the selected item</span>
-            <label>
-              <input type="text" name="probabilityOfUsingSelectedItem" value="">
-            </label>
-            <button class="spectrum-ActionButton spectrum-ActionButton--quiet">
-              <svg xmlns="http://www.w3.org/2000/svg" class="spectrum-Icon spectrum-Icon--sizeL" viewBox="0 0 36 36" focusable="false" role="img">
-                <title>Data Element selector</title>
-                <rect fill="#ff13dc" opacity="0" />
-                <ellipse class="a" cx="9" cy="3.5" rx="8" ry="2.5" />
-                <path class="a" d="M9,12.1375c-2.468,0-7.106-.5845-8-2V14.5C1,15.8805,4.5815,17,9,17s8-1.1195,8-2.5V10.135C15.7765,11.6825,11.468,12.1375,9,12.1375Z" />
-                <path class="a" d="M9,7.1375c-2.468,0-7.106-.5845-8-2.0025V8.5C1,9.8805,4.5815,11,9,11s8-1.1195,8-2.5V5.135C15.7765,6.6825,11.468,7.1375,9,7.1375Z" />
-              </svg>
-            </button>
-          </div>
+        <div class="coral-InputGroup" style="width: 400px;" role="presentation">
+          <input id="selected-item" name="selectedItem" value="" class="coral-InputGroup-input" is="coral-textfield" placeholder="selected item">
+          <span class="coral-InputGroup-button">
+            <button is="coral-button" icon="data" title="Data Element selector"></button>
+          </span>
         </div>
-        This must be a floating point number between 0.0 and 1.0. If any other
-        value is provided, then an error will occur.<br />
-        <span class="error-message hide">
-          A number between 0.0 and 1.0, or a data element that returns such a
-          number, must be provided.
+        <coral-tooltip target="_prev" variant="info" placement="right" offset="8">
+          This is the item that has been pre-selected and will be returned if the probability is
+          met.
+        </coral-tooltip>
+      </div>
+
+      <div class="coral-FormGroup-item">
+        <span>
+          Probability of using the selected item
+          <coral-icon icon="Asterisk" class="coral-FieldLabel-requiredIcon" size="XXS" alt="required"></coral-icon>
         </span>
-      </div>
-
-      <div class="content-separator">
-        &nbsp;
-      </div>
-
-      <div id="list-of-possible-items-container">
-        <div>
-          <div id="list-of-possible-items" class="max-width">
-            <span>List of possible items</span>
-            <label>
-              <input type="text" name="listOfPossibleItems" value="">
-            </label>
-            <button class="spectrum-ActionButton spectrum-ActionButton--quiet">
-              <svg xmlns="http://www.w3.org/2000/svg" class="spectrum-Icon spectrum-Icon--sizeL" viewBox="0 0 36 36" focusable="false" role="img">
-                <title>Data Element selector</title>
-                <rect fill="#ff13dc" opacity="0" />
-                <ellipse class="a" cx="9" cy="3.5" rx="8" ry="2.5" />
-                <path class="a" d="M9,12.1375c-2.468,0-7.106-.5845-8-2V14.5C1,15.8805,4.5815,17,9,17s8-1.1195,8-2.5V10.135C15.7765,11.6825,11.468,12.1375,9,12.1375Z" />
-                <path class="a" d="M9,7.1375c-2.468,0-7.106-.5845-8-2.0025V8.5C1,9.8805,4.5815,11,9,11s8-1.1195,8-2.5V5.135C15.7765,6.6825,11.468,7.1375,9,7.1375Z" />
-              </svg>
-            </button>
-          </div>
+        <div class="coral-InputGroup" style="width: 400px;" role="presentation">
+          <input id="selected-item" name="probabilityOfUsingSelectedItem" value="" class="coral-InputGroup-input" is="coral-textfield" placeholder="0.75">
+          <span class="coral-InputGroup-button">
+            <button is="coral-button" icon="data" title="Data Element selector"></button>
+          </span>
         </div>
-        This must be a comma-separated string or an array of items. If neither
-        is provided, then an error will occur.<br />
-        <span class="error-message hide">
-          A comma-separated string, or a data element that returns such a
-          string or an array of items, must be provided.
+        <coral-tooltip target="_prev" variant="info" placement="right" offset="8">
+          This must be a floating point number between 0.0 and 1.0. If any other value is provided,
+          then an error will occur.
+        </coral-tooltip>
+      </div>
+
+      <div class="coral-FormGroup-item">
+        <span>
+          List of possible items
+          <coral-icon icon="Asterisk" class="coral-FieldLabel-requiredIcon" size="XXS" alt="required"></coral-icon>
         </span>
+        <div class="coral-InputGroup" style="width: 400px;" role="presentation">
+          <input id="selected-item" name="listOfPossibleItems" value="" class="coral-InputGroup-input" is="coral-textfield" placeholder="comma-separated list of values">
+          <span class="coral-InputGroup-button">
+            <button is="coral-button" icon="data" title="Data Element selector"></button>
+          </span>
+        </div>
+        <coral-tooltip target="_prev" variant="info" placement="right" offset="8">
+          This must be a comma-separated string or an array of items. If neither is provided, then
+          an error will occur.
+        </coral-tooltip>
       </div>
 
-      <div class="content-separator">
-        &nbsp;
-      </div>
-
-      <div id="return-type-container" class="" role="radiogroup">
-        Return the data element's value as
-        <div class="spectrum-FieldGroup max-width">
-          <label class="spectrum-Radio">
-            <input class="spectrum-Radio-button" type="radio" name="returnType" value="value" checked="true">
-            <span class="spectrum-Radio-label">the item itself.</span>
-          </label>
-        </div>
-        <div class="spectrum-FieldGroup max-width">
-          <label class="spectrum-Radio">
-            <input class="spectrum-Radio-button" type="radio" name="returnType" value="position">
-            <span class="spectrum-Radio-label">
-              the item's position in the list of items (the first item in the
-              list has position 1). If the item is not in the list, then a "0"
-              position is returned.
-            </span>
-          </label>
-        </div>
+      <div id="return-type-container" class="coral-FormGroup-item">
+        <label class="coral-FieldLabel coral-FieldLabel--left">
+          Return the data element's value as
+        </label>
+        <coral-radiogroup orientation="vertical">
+          <coral-radio name="returnType" value="value" checked="">
+            the item itself
+          </coral-radio>
+          <coral-radio name="returnType" value="position">
+            the item's position in the list of items (the first item in the list has position 1).
+            If the item is not in the list, then a "0" position is returned.
+          </coral-radio>
+        </coral-radiogroup>
       </div>
     </form>
+
+    <hr class="coral-Divider--S">
+
+    <footer class="coral--lightest coral-Body--XS">
+      <div id="donations">
+        <p>
+          Donate: <a href="https://paypal.me/yuhuibc" target="_blank">PayPal</a>
+        </p>
+      </div>
+      <div id="support">
+        <p>
+          Support Information
+        </p>
+        <ul>
+          <li>
+            <a href="https://github.com/yuhui/launchext-differential-privacy/issues" target="_blank">
+              Open a ticket
+            </a>
+          </li>
+          <li>
+            <a href="https://github.com/yuhui/launchext-differential-privacy/blob/master/CHANGELOG.md" target="_blank">
+              Read change log
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <p>
+        Copyright &copy; 2020 Yuhui. All rights reserved.
+      </p>
+      <p>
+        <a href="https://yuhui.sg/terms-of-service.html" target="_blank">Terms of Service</a> |
+        <a href="https://yuhui.sg/privacy-policy.html" target="_blank">Privacy Policy</a> |
+        <a href="https://yuhui.sg/cookie-policy.html" target="_blank">Cookie Policy</a> |
+        <a href="https://yuhui.sg/acceptable-use-policy.html" target="_blank">Acceptable Use Policy</a>
+      </p>
+    </footer>
 
     <script src="https://assets.adobedtm.com/activation/reactor/extensionbridge/extensionbridge.min.js"></script>
     <script src="../scripts/common.js"></script>
@@ -147,12 +141,23 @@
         },
 
         validate: function() {
+          var coralTextFieldSelector = 'input[is="coral-textfield"]';
+          document.querySelectorAll(coralTextFieldSelector).forEach(function(input) {
+            input.removeAttribute('invalid');
+          });
+          var errorTextFieldSelector = coralTextFieldSelector + '[name="fieldName"]';
+
           var formValues = getFormValues(FORM_ID);
 
           var selectedItem = formValues.selectedItem;
           var selectedItemIsNotBlank = selectedItem.length > 0;
           var selectedItemIsValid = selectedItemIsNotBlank;
-          toggleInputErrorMessage('selectedItem', selectedItemIsValid);
+          if (!selectedItemIsValid) {
+            var selector = errorTextFieldSelector.replace('fieldName', 'selectedItem');
+            document.querySelectorAll(selector).forEach(function(input) {
+              input.setAttribute('invalid', '');
+            });
+          }
 
           var probabilityOfUsingSelectedItem =
             formValues.probabilityOfUsingSelectedItem;
@@ -176,18 +181,23 @@
             probabilityOfUsingSelectedItemIsNotBlank &&
             probabilityOfUsingSelectedItemIsFloat &&
             probabilityOfUsingSelectedItemIsBetweenZeroAndOne;
-          toggleInputErrorMessage(
-            'probabilityOfUsingSelectedItem',
-            probabilityOfUsingSelectedItemIsValid
-          );
+          if (!probabilityOfUsingSelectedItemIsValid) {
+            var selector =
+              errorTextFieldSelector.replace('fieldName', 'probabilityOfUsingSelectedItem');
+            document.querySelectorAll(selector).forEach(function(input) {
+              input.setAttribute('invalid', '');
+            });
+          }
 
           var listOfPossibleItems = formValues.listOfPossibleItems;
           var listOfPossibleItemsIsNotBlank = listOfPossibleItems.length > 0;
           var listOfPossibleItemsIsValid = listOfPossibleItemsIsNotBlank;
-          toggleInputErrorMessage(
-            'listOfPossibleItems',
-            listOfPossibleItemsIsValid
-          );
+          if (!listOfPossibleItemsIsValid) {
+            var selector = errorTextFieldSelector.replace('fieldName', 'listOfPossibleItems');
+            document.querySelectorAll(selector).forEach(function(input) {
+              input.setAttribute('invalid', '');
+            });
+          }
 
           return selectedItemIsValid &&
             probabilityOfUsingSelectedItemIsValid &&
@@ -196,20 +206,18 @@
       });
 
       /**
-       * When the data element selector button is clicked,
+       * When the data element selector coral-icon button is clicked,
        * open Launch's data element selector,
-       * then set the button's input sibling with the selected data element.
+       * then set the coral-icon's nearest input with the selected data element.
        */
-      document.querySelectorAll('button.spectrum-ActionButton').
-        forEach(function(button) {
-          button.addEventListener('click', function(e) {
-            var inputElement = this.parentNode.querySelector('input');
-            window.extensionBridge.openDataElementSelector().
-              then(function(dataElement) {
-                inputElement.value = dataElement;
-              });
+      document.querySelectorAll('button[icon="data"]').forEach(function(button) {
+        button.addEventListener('click', function(e) {
+          var inputElement = this.closest('div.coral-InputGroup').querySelector('input');
+          window.extensionBridge.openDataElementSelector().then(function(dataElement) {
+            inputElement.value = dataElement;
           });
         });
+      });
     </script>
   </body>
 </html>
