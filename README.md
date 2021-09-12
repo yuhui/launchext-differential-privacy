@@ -1,6 +1,6 @@
-# Differential Privacy Extension for Adobe Experience Platform Launch
+# Differential Privacy Extension for Adobe Experience Platform Data Collection Tags
 
-This is an extension for Adobe Experience Platform Launch that provides a simple application of differential privacy to select a value from a list.
+This is an extension for Adobe Experience Platform Data Collection Tags that provides a simple application of differential privacy to select a value from a list.
 
 It performs the following functions:
 
