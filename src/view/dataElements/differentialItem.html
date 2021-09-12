@@ -8,14 +8,6 @@
     <script src="https://unpkg.com/@adobe/coral-spectrum@4.5.0/dist/js/coral.min.js" data-coral-icons-external="js"></script>
   </head>
   <body class="coral--light coral-Body--S u-coral-margin">
-    <section class="coral-Well">
-      <h4 class="coral-Heading--S coral-Heading--light">How this Data Element works</h4>
-        <p>
-        Given a list of items and a probability, this data element returns either the pre-selected
-        item or a random item from the list.
-      </p>
-    </section>
-
     <form id="data-element-configuration" class="coral-Form">
       <h4 class="coral-Heading--M">Setup Differential Item</h4>
 
@@ -30,6 +22,7 @@
             <button is="coral-button" icon="data" title="Data Element selector"></button>
           </span>
         </div>
+        <coral-icon icon="info" title="Info" size="S"></coral-icon>
         <coral-tooltip target="_prev" variant="info" placement="right" offset="8">
           This is the item that has been pre-selected and will be returned if the probability is
           met.
@@ -47,6 +40,7 @@
             <button is="coral-button" icon="data" title="Data Element selector"></button>
           </span>
         </div>
+        <coral-icon icon="info" title="Info" size="S"></coral-icon>
         <coral-tooltip target="_prev" variant="info" placement="right" offset="8">
           This must be a floating point number between 0.0 and 1.0. If any other value is provided,
           then an error will occur.
@@ -64,6 +58,7 @@
             <button is="coral-button" icon="data" title="Data Element selector"></button>
           </span>
         </div>
+        <coral-icon icon="info" title="Info" size="S"></coral-icon>
         <coral-tooltip target="_prev" variant="info" placement="right" offset="8">
           This must be a comma-separated string or an array of items. If neither is provided, then
           an error will occur.
@@ -86,6 +81,14 @@
       </div>
     </form>
 
+    <section class="coral-Well">
+      <h4 class="coral-Heading--S coral-Heading--light">How this Data Element works</h4>
+        <p>
+        Given a list of items and a probability, this data element returns either the pre-selected
+        item or a random item from the list.
+      </p>
+    </section>
+
     <hr class="coral-Divider--S">
 
     <footer class="coral--lightest coral-Body--XS">
@@ -98,13 +101,13 @@
         <p>
           Support Information
         </p>
-        <ul>
-          <li>
+        <ul class="coral-List">
+          <li class="coral-List-item">
             <a href="https://github.com/yuhui/launchext-differential-privacy/issues" target="_blank">
               Open a ticket
             </a>
           </li>
-          <li>
+          <li class="coral-List-item">
             <a href="https://github.com/yuhui/launchext-differential-privacy/blob/master/CHANGELOG.md" target="_blank">
               Read change log
             </a>

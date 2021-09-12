@@ -1,3 +1,8 @@
+1.1.1 (released on 1 July 2021)
+--------------------------------
+
+- Restore tooltips in views.
+
 1.1.0 (released on 29 June 2021)
 --------------------------------
 

@@ -1,16 +1,16 @@
 {
   "name": "launchext-differential-privacy",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Provide a simple application of differential privacy in Adobe Experience Platform Launch",
   "author": "Yuhui",
   "license": "GPL-3.0-or-later",
   "main": "main.js",
   "devDependencies": {
     "@adobe/reactor-packager": "^4.1.1",
-    "@adobe/reactor-sandbox": "^11.2.0",
+    "@adobe/reactor-sandbox": "^12.0.0",
     "@adobe/reactor-uploader": "^5.0.5",
-    "eslint": "^7.29.0",
-    "jasmine": "^3.7.0"
+    "eslint": "^7.32.0",
+    "jasmine": "^3.9.0"
   },
   "scripts": {
     "test": "jasmine"

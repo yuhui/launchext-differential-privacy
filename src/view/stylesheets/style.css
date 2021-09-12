@@ -14,7 +14,15 @@
  * limitations under the License.
  */
 
- .text-underline {
+coral-icon[icon="info"][size="S"] {
+  margin-top: 1ex;
+  margin-left: 1ex;
+}
+  div.coral-InputGroup ~ coral-icon[icon="info"] {
+    vertical-align: text-bottom;
+  }
+
+.text-underline {
   text-decoration: underline;
 }
 
