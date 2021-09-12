@@ -8,65 +8,65 @@
     <script src="https://unpkg.com/@adobe/coral-spectrum@4.5.0/dist/js/coral.min.js" data-coral-icons-external="js"></script>
   </head>
   <body class="coral--light coral-Body--S u-coral-margin">
-    <form id="data-element-configuration" class="coral-Form">
+    <form id="data-element-configuration" class="coral-Form coral-FormGroup--labelsAbove">
       <h4 class="coral-Heading--M">Setup Differential Item</h4>
 
       <div class="coral-FormGroup-item">
-        <span>
+        <label for="selected-item" class="coral-FormGroup-itemLabel">
           Pre-selected item
           <coral-icon icon="Asterisk" class="coral-FieldLabel-requiredIcon" size="XXS" alt="required"></coral-icon>
-        </span>
-        <div class="coral-InputGroup" style="width: 400px;" role="presentation">
+        </label>
+        <div class="coral-InputGroup" style="width: 100%;" role="presentation">
           <input id="selected-item" name="selectedItem" value="" class="coral-InputGroup-input" is="coral-textfield" placeholder="selected item">
           <span class="coral-InputGroup-button">
             <button is="coral-button" icon="data" title="Data Element selector"></button>
           </span>
+          <coral-icon icon="info" title="Info" size="S"></coral-icon>
+          <coral-tooltip target="_prev" variant="info" placement="right" offset="8">
+            This is the item that has been pre-selected and will be returned if the probability is
+            met.
+          </coral-tooltip>
         </div>
-        <coral-icon icon="info" title="Info" size="S"></coral-icon>
-        <coral-tooltip target="_prev" variant="info" placement="right" offset="8">
-          This is the item that has been pre-selected and will be returned if the probability is
-          met.
-        </coral-tooltip>
       </div>
 
       <div class="coral-FormGroup-item">
-        <span>
+        <label for="probability-of-using-selected-item" class="coral-FormGroup-itemLabel">
           Probability of using the selected item
           <coral-icon icon="Asterisk" class="coral-FieldLabel-requiredIcon" size="XXS" alt="required"></coral-icon>
-        </span>
-        <div class="coral-InputGroup" style="width: 400px;" role="presentation">
-          <input id="selected-item" name="probabilityOfUsingSelectedItem" value="" class="coral-InputGroup-input" is="coral-textfield" placeholder="0.75">
+        </label>
+        <div class="coral-InputGroup" style="width: 100%;" role="presentation">
+          <input id="probability-of-using-selected-item" name="probabilityOfUsingSelectedItem" value="" class="coral-InputGroup-input" is="coral-textfield" placeholder="0.75">
           <span class="coral-InputGroup-button">
             <button is="coral-button" icon="data" title="Data Element selector"></button>
           </span>
+          <coral-icon icon="info" title="Info" size="S"></coral-icon>
+          <coral-tooltip target="_prev" variant="info" placement="right" offset="8">
+            This must be a floating point number between 0.0 and 1.0. If any other value is provided,
+            then an error will occur.
+          </coral-tooltip>
         </div>
-        <coral-icon icon="info" title="Info" size="S"></coral-icon>
-        <coral-tooltip target="_prev" variant="info" placement="right" offset="8">
-          This must be a floating point number between 0.0 and 1.0. If any other value is provided,
-          then an error will occur.
-        </coral-tooltip>
       </div>
 
       <div class="coral-FormGroup-item">
-        <span>
+        <label for="list-of-possible-items" class="coral-FormGroup-itemLabel">
           List of possible items
           <coral-icon icon="Asterisk" class="coral-FieldLabel-requiredIcon" size="XXS" alt="required"></coral-icon>
-        </span>
-        <div class="coral-InputGroup" style="width: 400px;" role="presentation">
-          <input id="selected-item" name="listOfPossibleItems" value="" class="coral-InputGroup-input" is="coral-textfield" placeholder="comma-separated list of values">
+        </label>
+        <div class="coral-InputGroup" style="width: 100%;" role="presentation">
+          <input id="list-of-possible-items" name="listOfPossibleItems" value="" class="coral-InputGroup-input" is="coral-textfield" placeholder="comma-separated list of values">
           <span class="coral-InputGroup-button">
             <button is="coral-button" icon="data" title="Data Element selector"></button>
           </span>
+          <coral-icon icon="info" title="Info" size="S"></coral-icon>
+          <coral-tooltip target="_prev" variant="info" placement="right" offset="8">
+            This must be a comma-separated string or an array of items. If neither is provided, then
+            an error will occur.
+          </coral-tooltip>
         </div>
-        <coral-icon icon="info" title="Info" size="S"></coral-icon>
-        <coral-tooltip target="_prev" variant="info" placement="right" offset="8">
-          This must be a comma-separated string or an array of items. If neither is provided, then
-          an error will occur.
-        </coral-tooltip>
       </div>
 
       <div id="return-type-container" class="coral-FormGroup-item">
-        <label class="coral-FieldLabel coral-FieldLabel--left">
+        <label class="coral-FormGroup-itemLabel">
           Return the data element's value as
         </label>
         <coral-radiogroup orientation="vertical">
@@ -94,7 +94,7 @@
     <footer class="coral--lightest coral-Body--XS">
       <div id="donations">
         <p>
-          Donate: <a href="https://paypal.me/yuhuibc" target="_blank">PayPal</a>
+          Donate: <a class="coral-Link" href="https://paypal.me/yuhuibc" target="_blank">PayPal</a>
         </p>
       </div>
       <div id="support">
@@ -103,12 +103,12 @@
         </p>
         <ul class="coral-List">
           <li class="coral-List-item">
-            <a href="https://github.com/yuhui/launchext-differential-privacy/issues" target="_blank">
+            <a class="coral-Link" href="https://github.com/yuhui/launchext-differential-privacy/issues" target="_blank">
               Open a ticket
             </a>
           </li>
           <li class="coral-List-item">
-            <a href="https://github.com/yuhui/launchext-differential-privacy/blob/master/CHANGELOG.md" target="_blank">
+            <a class="coral-Link" href="https://github.com/yuhui/launchext-differential-privacy/blob/master/CHANGELOG.md" target="_blank">
               Read change log
             </a>
           </li>
@@ -119,10 +119,10 @@
         Copyright &copy; 2020 Yuhui. All rights reserved.
       </p>
       <p>
-        <a href="https://yuhui.sg/terms-of-service.html" target="_blank">Terms of Service</a> |
-        <a href="https://yuhui.sg/privacy-policy.html" target="_blank">Privacy Policy</a> |
-        <a href="https://yuhui.sg/cookie-policy.html" target="_blank">Cookie Policy</a> |
-        <a href="https://yuhui.sg/acceptable-use-policy.html" target="_blank">Acceptable Use Policy</a>
+        <a class="coral-Link" href="https://yuhui.sg/terms-of-service.html" target="_blank">Terms of Service</a> |
+        <a class="coral-Link" href="https://yuhui.sg/privacy-policy.html" target="_blank">Privacy Policy</a> |
+        <a class="coral-Link" href="https://yuhui.sg/cookie-policy.html" target="_blank">Cookie Policy</a> |
+        <a class="coral-Link" href="https://yuhui.sg/acceptable-use-policy.html" target="_blank">Acceptable Use Policy</a>
       </p>
     </footer>
 
