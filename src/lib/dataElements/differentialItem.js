@@ -18,6 +18,19 @@
 
 var logger = turbine.logger;
 
+var PROBABILITY_OF_USING_SELECTED_ITEM_ALLOWED_TYPES = [
+  '[object Number]',
+  '[object String]',
+];
+var LIST_OF_POSSIBLE_ITEMS_ALLOWED_TYPES = [
+  '[object Array]',
+  '[object String]',
+];
+var RETURN_TYPE_ALLOWED_VALUES = [
+  'position',
+  'value',
+];
+
 /**
  * Returns the object's type using `Object.prototype.toString`.
  * Reference: https://stackoverflow.com/a/332429
@@ -27,7 +40,8 @@ var logger = turbine.logger;
  * @returns {string} The object's type.
  */
 var objectType = function(obj) {
-  return Object.prototype.toString.call(obj).slice(8, -1);
+  var toString = Object.prototype.toString;
+  return toString.call(obj);
 };
 
 /**
@@ -61,25 +75,23 @@ module.exports = function(settings) {
     logger.error('missing probability of using selected item');
     return;
   }
-  var probabilityOfUsingSelectedItemType = objectType(
-    probabilityOfUsingSelectedItem
-  );
-  if (
-    ['Number', 'String'].indexOf(probabilityOfUsingSelectedItemType) === -1
-  ) {
+  var probabilityOfUsingSelectedItemType = objectType(probabilityOfUsingSelectedItem);
+  var probabilityOfUsingSelectedItemTypeIsAllowed =
+    PROBABILITY_OF_USING_SELECTED_ITEM_ALLOWED_TYPES.indexOf(
+      probabilityOfUsingSelectedItemType
+    ) === -1;
+  if (probabilityOfUsingSelectedItemTypeIsAllowed) {
     logger.error('probability of using selected item is not a number');
     return;
   }
-  if (probabilityOfUsingSelectedItemType === 'String') {
-    probabilityOfUsingSelectedItem = parseFloat(probabilityOfUsingSelectedItem);
+  if (probabilityOfUsingSelectedItemType === '[object String]') {
+    probabilityOfUsingSelectedItem = Number(probabilityOfUsingSelectedItem);
   }
   if (!probabilityOfUsingSelectedItem) {
     logger.error('probability of using selected item is not a number');
     return;
   }
-  if (
-    probabilityOfUsingSelectedItem < 0.0 || probabilityOfUsingSelectedItem > 1.0
-  ) {
+  if (probabilityOfUsingSelectedItem < 0.0 || probabilityOfUsingSelectedItem > 1.0) {
     logger.error('probability of using selected item must be between 0.0 and 1.0');
     return;
   }
@@ -91,11 +103,14 @@ module.exports = function(settings) {
     return;
   }
   var listOfPossibleItemsType = objectType(listOfPossibleItems);
-  if (['Array', 'String'].indexOf(listOfPossibleItemsType) === -1) {
+  var listOfPossibleItemsTypeIsAllowed = LIST_OF_POSSIBLE_ITEMS_ALLOWED_TYPES.indexOf(
+    listOfPossibleItemsType
+  ) === -1;
+  if (listOfPossibleItemsTypeIsAllowed) {
     logger.error('list of possible items is not a string nor an array');
     return;
   }
-  if (listOfPossibleItemsType === 'String') {
+  if (listOfPossibleItemsType === '[object String]') {
     listOfPossibleItems = listOfPossibleItems.split(',').map(function(i) {
       return i.trim();
     });
@@ -107,7 +122,7 @@ module.exports = function(settings) {
     logger.error('missing return type');
     return;
   }
-  if (!/^(position|value)$/.test(returnType)) {
+  if (RETURN_TYPE_ALLOWED_VALUES.indexOf(returnType) === -1) {
     logger.error('return type is neither "position" nor "value"');
     return;
   }
@@ -134,9 +149,10 @@ module.exports = function(settings) {
       break;
     case 'value':
       returnValue = returnItem;
+      break;
   }
   if (!returnValue && returnValue === 0) {
-    returnValue += '';
+    returnValue = String(returnValue);
   }
   if (returnValue) {
     logger.debug('returned: ' + returnValue);

@@ -129,82 +129,84 @@
     <script src="https://assets.adobedtm.com/activation/reactor/extensionbridge/extensionbridge.min.js"></script>
     <script src="../scripts/common.js"></script>
     <script>
-      var FORM_ID = 'data-element-configuration';
+      const FORM_ID = 'data-element-configuration';
 
       window.extensionBridge.register({
-        init: function(info) {
+        init: (info) => {
           if (info.settings) {
             setFormValues(FORM_ID, info.settings);
           }
         },
 
-        getSettings: function() {
-          var formValues = getFormValues(FORM_ID);
+        getSettings: () => {
+          const formValues = getFormValues(FORM_ID);
           return formValues;
         },
 
-        validate: function() {
-          var coralTextFieldSelector = 'input[is="coral-textfield"]';
-          document.querySelectorAll(coralTextFieldSelector).forEach(function(input) {
+        validate: () => {
+          const textFieldSelector = 'input[is="coral-textfield"]';
+          const textFieldInputs = document.querySelectorAll(textFieldSelector);
+          textFieldInputs.forEach((input) => {
             input.removeAttribute('invalid');
           });
-          var errorTextFieldSelector = coralTextFieldSelector + '[name="fieldName"]';
+          const errorTextFieldSelector = `${textFieldSelector}[name="fieldName"]`;
 
-          var formValues = getFormValues(FORM_ID);
+          const formValues = getFormValues(FORM_ID);
+          const { selectedItem, probabilityOfUsingSelectedItem, listOfPossibleItems } = formValues;
 
-          var selectedItem = formValues.selectedItem;
-          var selectedItemIsNotBlank = selectedItem.length > 0;
-          var selectedItemIsValid = selectedItemIsNotBlank;
+          const selectedItemIsNotBlank = selectedItem.length > 0;
+          const selectedItemIsValid = selectedItemIsNotBlank;
           if (!selectedItemIsValid) {
-            var selector = errorTextFieldSelector.replace('fieldName', 'selectedItem');
-            document.querySelectorAll(selector).forEach(function(input) {
+            const selector = errorTextFieldSelector.replace('fieldName', 'selectedItem');
+            const errorTextFieldInputs = document.querySelectorAll(selector);
+            errorTextFieldInputs.forEach((input) => {
               input.setAttribute('invalid', '');
             });
           }
 
-          var probabilityOfUsingSelectedItem =
-            formValues.probabilityOfUsingSelectedItem;
-          var probabilityOfUsingSelectedItemIsNotBlank =
+          const probabilityOfUsingSelectedItemIsNotBlank =
             probabilityOfUsingSelectedItem.length > 0;
-          var probabilityOfUsingSelectedItemIsFloat =
-            isDataElementToken(probabilityOfUsingSelectedItem) ?
+          const probabilityOfUsingSelectedItemIsFloat =
+            isDataElementToken(probabilityOfUsingSelectedItem)
               // assume that the data element is a float
-              true :
-              !!parseFloat(probabilityOfUsingSelectedItem);
-          var probabilityOfUsingSelectedItemIsBetweenZeroAndOne =
-            isDataElementToken(probabilityOfUsingSelectedItem) ?
+              ? true
+              : !!Number(probabilityOfUsingSelectedItem);
+          const probabilityOfUsingSelectedItemIsBetweenZeroAndOne =
+            isDataElementToken(probabilityOfUsingSelectedItem)
               // assume that the data element is a float between 0.0 and 1.0
-              true :
-              (
-                probabilityOfUsingSelectedItemIsFloat &&
-                probabilityOfUsingSelectedItem >= 0.0 &&
-                probabilityOfUsingSelectedItem <= 1.0
+              ? true
+              : (
+                probabilityOfUsingSelectedItemIsFloat
+                && probabilityOfUsingSelectedItem >= 0.0
+                && probabilityOfUsingSelectedItem <= 1.0
               );
-          var probabilityOfUsingSelectedItemIsValid =
-            probabilityOfUsingSelectedItemIsNotBlank &&
-            probabilityOfUsingSelectedItemIsFloat &&
-            probabilityOfUsingSelectedItemIsBetweenZeroAndOne;
+          const probabilityOfUsingSelectedItemIsValid = probabilityOfUsingSelectedItemIsNotBlank
+            && probabilityOfUsingSelectedItemIsFloat
+            && probabilityOfUsingSelectedItemIsBetweenZeroAndOne;
           if (!probabilityOfUsingSelectedItemIsValid) {
-            var selector =
-              errorTextFieldSelector.replace('fieldName', 'probabilityOfUsingSelectedItem');
-            document.querySelectorAll(selector).forEach(function(input) {
+            const selector = errorTextFieldSelector.replace(
+              'fieldName',
+              'probabilityOfUsingSelectedItem',
+            );
+            const errorTextFieldInputs = document.querySelectorAll(selector);
+            errorTextFieldInputs.forEach((input) => {
               input.setAttribute('invalid', '');
             });
           }
 
-          var listOfPossibleItems = formValues.listOfPossibleItems;
-          var listOfPossibleItemsIsNotBlank = listOfPossibleItems.length > 0;
-          var listOfPossibleItemsIsValid = listOfPossibleItemsIsNotBlank;
+          const listOfPossibleItemsIsNotBlank = listOfPossibleItems.length > 0;
+          const listOfPossibleItemsIsValid = listOfPossibleItemsIsNotBlank;
           if (!listOfPossibleItemsIsValid) {
-            var selector = errorTextFieldSelector.replace('fieldName', 'listOfPossibleItems');
-            document.querySelectorAll(selector).forEach(function(input) {
+            const selector = errorTextFieldSelector.replace('fieldName', 'listOfPossibleItems');
+            const errorTextFieldInputs = document.querySelectorAll(selector);
+            errorTextFieldInputs.forEach((input) => {
               input.setAttribute('invalid', '');
             });
           }
 
-          return selectedItemIsValid &&
-            probabilityOfUsingSelectedItemIsValid &&
-            listOfPossibleItemsIsValid;
+          return selectedItemIsValid
+            && probabilityOfUsingSelectedItemIsValid
+            && listOfPossibleItemsIsValid;
         }
       });
 
@@ -213,10 +215,12 @@
        * open Data Collection Tags's data element selector,
        * then set the coral-icon's nearest input with the selected data element.
        */
-      document.querySelectorAll('button[icon="data"]').forEach(function(button) {
-        button.addEventListener('click', function(e) {
-          var inputElement = this.closest('div.coral-InputGroup').querySelector('input');
-          window.extensionBridge.openDataElementSelector().then(function(dataElement) {
+      const dataButtons = document.querySelectorAll('button[icon="data"]');
+      dataButtons.forEach((button) => {
+        button.addEventListener('click', (event) => {
+          const inputGroup = event.target.closest('div.coral-InputGroup');
+          const inputElement = inputGroup.querySelector('input');
+          window.extensionBridge.openDataElementSelector().then((dataElement) => {
             inputElement.value = dataElement;
           });
         });
