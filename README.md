@@ -14,6 +14,6 @@ It performs the following functions:
 
 ## Copyright
 
-Copyright &copy; Yuhui 2020. All rights reserved.
+Copyright &copy; Yuhui 2020-2022-2022. All rights reserved.
 
 Licensed under the GNU General Public License (GPL) version 3.0.

@@ -1,5 +1,5 @@
 /**
- * Copyright 2020 Yuhui. All rights reserved.
+ * Copyright 2020-2022 Yuhui. All rights reserved.
  *
  * Licensed under the GNU General Public License, Version 3.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -37,7 +37,7 @@ var RETURN_TYPE_ALLOWED_VALUES = [
  *
  * @param {*} obj The object to get its type.
  *
- * @returns {string} The object's type.
+ * @returns {String} The object's type.
  */
 var objectType = function(obj) {
   var toString = Object.prototype.toString;
@@ -48,14 +48,14 @@ var objectType = function(obj) {
  * The differential item data element.
  *
  * @param {Object} settings The data element settings object.
- * @param {string or Array} settings.listOfPossibleItems A comma-separated
+ * @param {String or Array} settings.listOfPossibleItems A comma-separated
  * string or a data element that returns a comma-separated string or an array
  * of items.
- * @param {string or Object} settings.selectedItem A string or a data element
+ * @param {String or Object} settings.selectedItem A string or a data element
  * that returns an object.
- * @param {float} settings.probabilityOfUsingSelectedItem A float (stored as a
+ * @param {Float} settings.probabilityOfUsingSelectedItem A float (stored as a
  * string) that represents the probability of returning the selected item.
- * @param {string} settings.returnType "value" or "position".
+ * @param {String} settings.returnType "value" or "position".
  *
  * @returns {Object} An item from the array of items. This could be the
  * selected item itself, if the probability is met, or a random item from the
