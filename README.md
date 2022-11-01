@@ -6,7 +6,7 @@ It performs the following functions:
 
 - Provides a data element that returns a pre-selected item or an item from a list using differential privacy.
 
-[Adobe Exchange Program app listing](https://exchange.adobe.com/experiencecloud.details.104535.differential-privacy.html)
+[Adobe Exchange Program app listing](https://exchange.adobe.com/apps/ec/104535)
 
 ## Reference
 
