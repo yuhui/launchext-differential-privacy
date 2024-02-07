@@ -16,7 +16,12 @@
 
 'use strict';
 
-var logger = turbine.logger;
+const {
+  logger: {
+    debug: logDebug,
+    error: logError,
+  },
+} = require('../controllers/turbine');
 
 var PROBABILITY_OF_USING_SELECTED_ITEM_ALLOWED_TYPES = [
   '[object Number]',
@@ -65,14 +70,14 @@ module.exports = function(settings) {
   // validate settings.selectedItem
   var selectedItem = settings.selectedItem;
   if (!selectedItem) {
-    logger.error('missing selected item');
+    logError(`selected item ${e.message}`, selectedItem);
     return;
   }
 
   // validate settings.probabilityOfUsingSelectedItem
   var probabilityOfUsingSelectedItem = settings.probabilityOfUsingSelectedItem;
   if (!probabilityOfUsingSelectedItem) {
-    logger.error('missing probability of using selected item');
+    logError(`probability of using selected item ${e.message}`, probabilityOfUsingSelectedItem);
     return;
   }
   var probabilityOfUsingSelectedItemType = objectType(probabilityOfUsingSelectedItem);
@@ -88,11 +93,14 @@ module.exports = function(settings) {
     probabilityOfUsingSelectedItem = Number(probabilityOfUsingSelectedItem);
   }
   if (!probabilityOfUsingSelectedItem) {
-    logger.error('probability of using selected item is not a number');
+    logError(`probability of using selected item ${e.message}`, probabilityOfUsingSelectedItem);
     return;
   }
   if (probabilityOfUsingSelectedItem < 0.0 || probabilityOfUsingSelectedItem > 1.0) {
-    logger.error('probability of using selected item must be between 0.0 and 1.0');
+    logError(
+      'probability of using selected item must be between 0.0 and 1.0',
+      probabilityOfUsingSelectedItem
+    );
     return;
   }
 
@@ -107,7 +115,7 @@ module.exports = function(settings) {
     listOfPossibleItemsType
   ) === -1;
   if (listOfPossibleItemsTypeIsAllowed) {
-    logger.error('list of possible items is not a string nor an array');
+    logError(`list of possible items ${e.message}`, listOfPossibleItems);
     return;
   }
   if (listOfPossibleItemsType === '[object String]') {
@@ -119,11 +127,11 @@ module.exports = function(settings) {
   // validate settings.returnType
   var returnType = settings.returnType;
   if (!returnType) {
-    logger.error('missing return type');
+    logError('list of possible items has some undefined values', listOfPossibleItems);
     return;
   }
   if (RETURN_TYPE_ALLOWED_VALUES.indexOf(returnType) === -1) {
-    logger.error('return type is neither "position" nor "value"');
+    logError('return type is neither "position" nor "value"', returnType);
     return;
   }
 
@@ -155,7 +163,7 @@ module.exports = function(settings) {
     returnValue = String(returnValue);
   }
   if (returnValue) {
-    logger.debug('returned: ' + returnValue);
     return returnValue;
   }
+  logDebug(`returned: ${returnValue}`);
 };
