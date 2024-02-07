@@ -167,15 +167,13 @@
           const probabilityOfUsingSelectedItemIsNotBlank =
             probabilityOfUsingSelectedItem.length > 0;
           const probabilityOfUsingSelectedItemIsFloat =
+            // assume that the data element is a float
             isDataElementToken(probabilityOfUsingSelectedItem)
-              // assume that the data element is a float
-              ? true
-              : !!Number(probabilityOfUsingSelectedItem);
+            || !!Number(probabilityOfUsingSelectedItem);
           const probabilityOfUsingSelectedItemIsBetweenZeroAndOne =
             isDataElementToken(probabilityOfUsingSelectedItem)
-              // assume that the data element is a float between 0.0 and 1.0
-              ? true
-              : (
+            // assume that the data element is a float between 0.0 and 1.0
+            || (
                 probabilityOfUsingSelectedItemIsFloat
                 && probabilityOfUsingSelectedItem >= 0.0
                 && probabilityOfUsingSelectedItem <= 1.0

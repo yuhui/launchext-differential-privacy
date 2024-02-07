@@ -24,10 +24,10 @@ const {
 } = require('../controllers/turbine');
 const validateValue = require('../helpers/validateValue');
 
-var RETURN_TYPE_ALLOWED_VALUES = [
+const RETURN_TYPE_ALLOWED_VALUES = new Set([
   'position',
   'value',
-];
+]);
 
 const toString = Object.prototype.toString;
 
@@ -35,18 +35,17 @@ const toString = Object.prototype.toString;
  * The differential item data element.
  *
  * @param {Object} settings The data element settings object.
- * @param {String or Array} settings.listOfPossibleItems A comma-separated
- * string or a data element that returns a comma-separated string or an array
- * of items.
- * @param {String or Object} settings.selectedItem A string or a data element
- * that returns an object.
- * @param {Float} settings.probabilityOfUsingSelectedItem A float (stored as a
- * string) that represents the probability of returning the selected item.
+ * @param {String or Object} settings.selectedItem A string or a data element that returns an
+ *    object.
+ * @param {String} settings.probabilityOfUsingSelectedItem A float (stored as a string) that
+ *    represents the probability of returning the selected item.
+ * @param {String or Array} settings.listOfPossibleItems A comma-separated string or a data
+ *    element that returns a comma-separated string or an array of items.
  * @param {String} settings.returnType "value" or "position".
  *
- * @returns {Object} An item from the array of items. This could be the
- * selected item itself, if the probability is met, or a random item from the
- * array. If any validation fails, a blank string is returned.
+ * @returns {Object} An item from the array of items. This could be the selected item itself, if
+ *    the probability is met, or a random item from the array. If any validation fails, a blank
+ *    string is returned.
  */
 module.exports = function({
   selectedItem,
@@ -78,7 +77,11 @@ module.exports = function({
     logError(`probability of using selected item ${e.message}`, probabilityOfUsingSelectedItem);
     return;
   }
-  if (probabilityOfUsingSelectedItem < 0.0 || probabilityOfUsingSelectedItem > 1.0) {
+  if (
+    Number.isNaN(probabilityOfUsingSelectedItemValue)
+    || probabilityOfUsingSelectedItemValue < 0.0
+    || probabilityOfUsingSelectedItemValue > 1.0
+  ) {
     logError(
       'probability of using selected item must be between 0.0 and 1.0',
       probabilityOfUsingSelectedItem
@@ -92,52 +95,65 @@ module.exports = function({
     logError(`list of possible items ${e.message}`, listOfPossibleItems);
     return;
   }
-  if (listOfPossibleItemsType === '[object String]') {
-    listOfPossibleItems = listOfPossibleItems.split(',').map(function(i) {
-      return i.trim();
-    });
+  const listOfPossibleItemsArray = (
+    toString.call(listOfPossibleItems) === '[object String]'
+      ? listOfPossibleItems.split(',')
+      : listOfPossibleItems
+  ).map((i) => typeof i === 'string' ? i.trim() : i);
+  let isListOfPossibleItemsValidArray;
+  try {
+    isListOfPossibleItemsValidArray = listOfPossibleItemsArray.every((item) => validateValue(item));
+  } catch (e) {
+    isListOfPossibleItemsValidArray = false;
   }
-
-  // validate settings.returnType
-  var returnType = settings.returnType;
-  if (!returnType) {
+  if (!isListOfPossibleItemsValidArray) {
     logError('list of possible items has some undefined values', listOfPossibleItems);
     return;
   }
-  if (RETURN_TYPE_ALLOWED_VALUES.indexOf(returnType) === -1) {
+
+  if (!RETURN_TYPE_ALLOWED_VALUES.has(returnType)) {
     logError('return type is neither "position" nor "value"', returnType);
     return;
   }
 
   // assume that the item to return is the selected item
-  var returnItem = selectedItem;
+  let returnItem = selectedItem;
 
-  var randomNumber = Math.random();
-  if (randomNumber > probabilityOfUsingSelectedItem) {
-    // probability is not met
-    // get a random item from the list of possible items
-    var numPossibleItems = listOfPossibleItems.length;
-    var randomPosition = Math.floor(Math.random() * numPossibleItems);
-    returnItem = listOfPossibleItems[randomPosition];
+  const { floor, random } = Math;
+  const randomNumber = random();
+  if (randomNumber > probabilityOfUsingSelectedItemValue) {
+    /**
+     * probability is not met
+     * get a random item from the list of possible items
+     */
+    const numPossibleItems = listOfPossibleItemsArray.length;
+    const randomPosition = floor(random() * numPossibleItems);
+    returnItem = listOfPossibleItemsArray[randomPosition];
   }
 
-  var returnValue;
+  let returnValue;
   switch (returnType) {
     case 'position':
-      // position is 1-based
-      // if the selected item is not in the list, then this returns 0,
-      // ...which is correct!
-      returnValue = listOfPossibleItems.indexOf(returnItem) + 1;
+      /**
+       * position is 1-based
+       * if the selected item is not in the list, then this returns 0,
+       * ...which is correct!
+       */
+      returnValue = listOfPossibleItemsArray.indexOf(returnItem) + 1;
       break;
     case 'value':
       returnValue = returnItem;
       break;
   }
-  if (!returnValue && returnValue === 0) {
+  // make falsy values to be strings so that they can be returned properly
+  if (!returnValue) {
+    logDebug(`converting ${returnValue} to a string`);
     returnValue = String(returnValue);
   }
-  if (returnValue) {
-    return returnValue;
+  if (!returnValue) {
+    logError('unexpected error occurred with return value', returnValue);
   }
+
   logDebug(`returned: ${returnValue}`);
+  return returnValue;
 };
